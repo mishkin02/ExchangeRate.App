@@ -7,7 +7,7 @@
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Home"
+        Title="Конвертор валют"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
