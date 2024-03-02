@@ -19,7 +19,7 @@ namespace ExchangeRate.ViewModel
             get => _date;
             set
             {
-                if(_date != value)
+                if (_date != value)
                 {
                     _date = value;
                     OnPropertyChanged();
@@ -42,7 +42,7 @@ namespace ExchangeRate.ViewModel
                 }
             }
         }
-        
+
 
         private double _amountSrc;
         public double AmountSrc
@@ -50,7 +50,7 @@ namespace ExchangeRate.ViewModel
             get => _amountSrc;
             set
             {
-                if (_amountSrc != value) 
+                if (_amountSrc != value)
                 {
                     _amountSrc = value;
                     OnPropertyChanged();
@@ -115,6 +115,9 @@ namespace ExchangeRate.ViewModel
             Dictionary<String, Valute> valutes = currencyRates.Valutes;
             DateLabel = currencyRates.Date.ToString();
 
+            Valute SelectedValuteSrcTmp = SelectedValuteSrc != null ? valutes[SelectedValuteSrc.CharCode] : null;
+            Valute SelectedValuteDestTmp = SelectedValuteDest != null ? valutes[SelectedValuteDest.CharCode] : null;
+
             if (Valutes.Count != 0)
             {
                 Valutes.Clear();
@@ -124,6 +127,8 @@ namespace ExchangeRate.ViewModel
             {
                 Valutes.Add(pair.Value);
             }
+            SelectedValuteSrc = SelectedValuteSrcTmp != null ? valutes[SelectedValuteSrcTmp?.CharCode] : null;
+            SelectedValuteDest = SelectedValuteDestTmp != null ? valutes[SelectedValuteDestTmp?.CharCode] : null;
         }
 
         private void ValuteExchange()

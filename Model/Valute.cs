@@ -27,6 +27,17 @@ namespace ExchangeRate.Model
 
     public class Valute
     {
+        public Valute(string id, string numCode, string charCode, int nominal, string name, double value, double previous)
+        {
+            this.ID = id;
+            this.NumCode = numCode;
+            this.CharCode = charCode;
+            this.Nominal = nominal;
+            this.Name = name;
+            this.Value = value;
+            this.Previous = previous;
+        }
+
         [JsonProperty("ID")]
         public string ID { get; set; }
 
@@ -50,7 +61,7 @@ namespace ExchangeRate.Model
 
         public double Convert(Valute selectedValuteDest, double amountSrc)
         {
-            return amountSrc * this.Value / selectedValuteDest.Value;
-        }  
+            return amountSrc * this.Value * selectedValuteDest.Nominal / selectedValuteDest.Value * this.Nominal;
+        }
     }
 }

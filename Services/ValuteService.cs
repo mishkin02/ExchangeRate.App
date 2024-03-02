@@ -22,6 +22,19 @@ namespace ExchangeRate.Services
             httpClient = new HttpClient();
         }
 
+        public void AddBaseValute(CurrencyRates currencyRates)
+        {
+            Valute baseValute = new Valute(
+            "0",
+            "810",
+            "RUB",
+            1,
+            "Российский рубль",
+            1,
+            1);
+            currencyRates.Valutes.Add(baseValute.CharCode, baseValute);
+        }
+
         public async Task<CurrencyRates> GetCurrencies(DateTime date)
         {
             if (valCurs.Valutes?.Count > 0 && valCurs.Date == date)
@@ -39,12 +52,13 @@ namespace ExchangeRate.Services
                 response = await httpClient.GetAsync(apiUrl);
             }
             while (response.IsSuccessStatusCode == false);
-            
+
 
             if (response.IsSuccessStatusCode)
             {
                 string jsonString = await response.Content.ReadAsStringAsync();
                 valCurs = JsonConvert.DeserializeObject<CurrencyRates>(jsonString);
+                AddBaseValute(valCurs);
                 return valCurs;
             }
             return null;
